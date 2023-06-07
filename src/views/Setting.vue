@@ -1,7 +1,7 @@
 <template>
   <div class="setting" :style="{height: `${height}px`}">
     <el-form ref="form" :model="form" label-width="100px">
-      <el-row type="flex" class="row-bg" justify="center">
+<!--      <el-row type="flex" class="row-bg" justify="center">
         <el-col :span="12">
           <div class="setting-form-title">保存数据设置：</div>
         </el-col>
@@ -15,7 +15,7 @@
             </el-switch>
           </el-form-item>
         </el-col>
-      </el-row>
+      </el-row>-->
 
       <el-row type="flex" class="row-bg" justify="center">
         <el-col :span="12">

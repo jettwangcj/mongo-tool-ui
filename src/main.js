@@ -19,3 +19,18 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+// 定义全局前置导航守卫
+router.beforeEach((to, from, next) => {
+  // 处理访问权限
+  if (to.path === '/login' || to.path === '/register') {
+    next()
+  } else {
+    const auth = window.localStorage.getItem('auth')
+    if (auth) {
+      next()
+    } else {
+      next('/login')
+    }
+  }
+})

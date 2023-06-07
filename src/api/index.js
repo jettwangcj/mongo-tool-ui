@@ -1,5 +1,22 @@
 import http from '@/http'
 
+
+export function login(params) {
+    return http({
+        url: '/auth/account/login',
+        method: 'post',
+        params
+    })
+}
+
+export function register(params) {
+    return http({
+        url: '/auth/account/save',
+        method: 'post',
+        params
+    })
+}
+
 export function testConnection(params) {
     return http({
         url: '/connection/test',
