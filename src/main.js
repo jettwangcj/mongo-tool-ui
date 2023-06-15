@@ -6,13 +6,13 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/icon/iconfont.css';
 import VueContextMenu from 'vue-contextmenu'
-import WebSql from "@/websql/websql";
+//import WebSql from "@/websql/websql";
 
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueContextMenu)
-Vue.use(WebSql)
+//Vue.use(WebSql)
 
 new Vue({
   router,

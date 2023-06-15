@@ -20,25 +20,34 @@ const routes = [
     component: () => import('../views/register.vue')
   },
   {
-    path: '/home',
-    name: 'Home',
-    component: () => import('../views/Home.vue')
+    path: '/main',
+    name: 'Main',
+    component: () => import('../Main.vue'),
+    redirect:'Home',
+    children:[
+      {
+        path: '/home',
+        name: 'Home',
+        component: () => import('../views/Home.vue')
+      },
+      {
+        path: '/editor',
+        name: 'Editor',
+        component: () => import('../views/Home.vue')
+      },
+      {
+        path: '/commits',
+        name: 'Commits',
+        component: () => import('../views/Commits.vue')
+      },
+      {
+        path: '/setting',
+        name: 'Setting',
+        component: () => import('../views/Setting.vue')
+      }
+    ]
   },
-  {
-    path: '/editor',
-    name: 'Editor',
-    component: () => import('../views/Home.vue')
-  },
-  {
-    path: '/commits',
-    name: 'Commits',
-    component: () => import('../views/Commits.vue')
-  },
-  {
-    path: '/setting',
-    name: 'Setting',
-    component: () => import('../views/Setting.vue')
-  }
+
 ]
 
 const router = new VueRouter({

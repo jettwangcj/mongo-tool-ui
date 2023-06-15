@@ -2,8 +2,8 @@
   <div>
     <el-form ref="loginForm" :model="loginform" :rules="rules" label-width="80px" class="login-box" >
       <h3 class="login-title">欢迎登录</h3>
-      <el-form-item label="账号" prop="user">
-        <el-input type="text" placeholder="请输入账号" v-model="loginform.user"/>
+      <el-form-item label="账号" prop="userName">
+        <el-input type="text" placeholder="请输入账号" v-model="loginform.userName"/>
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input type="password" placeholder="请输入密码" v-model="loginform.password"/>
@@ -18,8 +18,7 @@
   </div>
 </template>
 <script>
-import Axios from 'axios';
-
+import { login } from '@/api'
 
 export default{
   components: {
@@ -31,13 +30,13 @@ export default{
       activeName: 'first',
       logining:false,
       loginform: {
-        user: '',
+        userName: '',
         password: ''
       },
 
       // 表单验证，需要在 el-form-item 元素中增加 prop 属性
       rules: {
-        user: [
+        userName: [
           {required: true, message: '账号不可为空', trigger: 'blur'}
         ],
         password: [
@@ -58,21 +57,17 @@ export default{
           this.logining=true
           let _this = this
           if (_this.logining == true) {
-            Axios.get("http://localhost:8181/admin/login",{params:this.loginform}).then(function (res) {
+            login({ ...this.loginform }).then(function (res) {
               _this.logining=false
-              // console.log(res.data.code)
-              if (res.data.code == -1) {
-                _this.$message.error('用户名不存在');
-              }
-              if (res.data.code == -2) {
-                _this.$message.error('密码错误');
-              }
-              if (res.data.code == 0) {
+              if (res.code == 'B0001') {
+                _this.$message.error(res.msg);
+              }else if (res.code == '00000') {
                 _this.$message({
                   message: '恭喜你，登录成功',
                   type: 'success'
                 });
-                localStorage.setItem('main',JSON.stringify(res.data.data));
+                localStorage.setItem('auth', res.data['loginAuth']);
+                localStorage.setItem('userName', res.data['userName']);
                 _this.$router.replace({path:'/main'})
               }
             })

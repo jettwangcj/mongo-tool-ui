@@ -1,11 +1,17 @@
 import http from '@/http'
 
-
 export function login(params) {
     return http({
         url: '/auth/account/login',
         method: 'post',
         params
+    })
+}
+
+export function logout() {
+    return http({
+        url: '/auth/account/logout',
+        method: 'put'
     })
 }
 

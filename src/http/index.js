@@ -9,6 +9,10 @@ const instance = axios.create({
 // 请求拦截
 instance.interceptors.request.use(
   config => {
+    const auth = window.localStorage.getItem('auth');
+    if (auth) {
+      config.headers['auth'] = auth;
+    }
     return config
   },
   error => {

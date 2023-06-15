@@ -2,8 +2,8 @@
   <div>
     <el-form ref="registerForm" :model="registerform" :rules="rules" label-width="80px"  class="register-box">
       <h3 class="register-title">注册用户</h3>
-      <el-form-item label="账号" prop="user">
-        <el-input type="text" placeholder="请输入账号" v-model="registerform.user"/>
+      <el-form-item label="账号" prop="userName">
+        <el-input type="text" placeholder="请输入账号" v-model="registerform.userName"/>
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input type="password" placeholder="请输入密码" v-model="registerform.password"/>
@@ -24,12 +24,12 @@ export default{
     return {
       logining: false,
       registerform: {
-        user: '',
+        userName: '',
         password: ''
       },
       // 表单验证，需要在 el-form-item 元素中增加 prop 属性
       rules: {
-        user: [
+        userName: [
           {required: true, message: '账号不可为空', trigger: 'blur'}
         ],
         password: [
@@ -46,18 +46,18 @@ export default{
           this.logining=true
           let _this = this
           if (_this.logining == true) {
-            register({ params:this.registerform }).then(res => {
+            register({ ...this.registerform }).then(res => {
               _this.logining=false
-              if (res.data.code == -1) {
+              if (res.code == -1) {
                 _this.$message.error('用户名已存在');
               }
-              if (res.data.code == 0) {
+              if (res.code == '00000') {
                 _this.$message({
                   message: '恭喜你，注册成功',
                   type: 'success'
                 });
-                localStorage.setItem('login',JSON.stringify(res.data.data));
-                _this.$router.push({path:'/'})
+              //  localStorage.setItem('login',JSON.stringify(res.data.data));
+                _this.$router.push({path:'/login'})
               }
             })
           }
